@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Directory</title>
+    <link rel="stylesheet" href="{% static 'main/style.css' %}">
+</head>
+<body>
+    <nav class="topbar">
+        <span class="logo">&#9670; CampusDesk</span>
+        <span class="tag">Quiz 3 &middot; Django</span>
+    </nav>
+
+    <main class="wrap">
+        <section class="intro">
+            <h1>Student Directory</h1>
+            <p>Data flows from the model, through the view and URL, into this template.</p>
+            <div class="stat"><span>{{ total }}</span> enrolled students</div>
+        </section>
+
+        {% if students %}
+        <div class="table-box">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student No.</th>
+                        <th>Name</th>
+                        <th>Program</th>
+                        <th>Year</th>
+                        <th>Section</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for s in students %}
+                    <tr>
+                        <td class="mono">{{ s.student_number }}</td>
+                        <td class="name">{{ s.full_name }}</td>
+                        <td>{{ s.program }}</td>
+                        <td>{{ s.year_level }}</td>
+                        <td>{{ s.section }}</td>
+                        <td><span class="badge {{ s.status|lower }}">{{ s.status }}</span></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="empty">No students yet. Add some in the <a href="/admin/">admin site</a>.</p>
+        {% endif %}
+    </main>
+</body>
+</html>
